@@ -65,6 +65,7 @@ class MyEnv(Environment):
         self.consumption_test_norm=np.load("data/example_nondeterminist_cons_test.npy")[0:1*365*24]
         # Scale consumption profile in [0,2.1kW] --> average max per day = 1.7kW, average per day is 18.3kWh
         self.consumption_train=self.consumption_train_norm*2.1
+
         self.consumption_valid=self.consumption_valid_norm*2.1
         self.consumption_test=self.consumption_test_norm*2.1
 

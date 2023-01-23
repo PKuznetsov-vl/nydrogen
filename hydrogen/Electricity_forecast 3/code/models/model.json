@@ -1,0 +1,65 @@
+{
+  "learner": {
+    "attributes": {
+      "best_iteration": "999",
+      "best_ntree_limit": "0",
+      "scikit_learn": "{\"n_estimators\": 1000, \"objective\": \"reg:squarederror\", \"max_depth\": null, \"learning_rate\": null, \"verbosity\": null, \"booster\": \"gblinear\", \"tree_method\": null, \"gamma\": null, \"min_child_weight\": null, \"max_delta_step\": null, \"subsample\": null, \"colsample_bytree\": null, \"colsample_bylevel\": null, \"colsample_bynode\": null, \"reg_alpha\": null, \"reg_lambda\": null, \"scale_pos_weight\": null, \"base_score\": null, \"missing\": NaN, \"num_parallel_tree\": null, \"random_state\": null, \"n_jobs\": null, \"monotone_constraints\": null, \"interaction_constraints\": null, \"importance_type\": null, \"gpu_id\": null, \"validate_parameters\": null, \"predictor\": null, \"enable_categorical\": false, \"kwargs\": {\"eta\": 0.2}, \"_estimator_type\": \"regressor\"}"
+    },
+    "feature_names": [],
+    "feature_types": [],
+    "gradient_booster": {
+      "model": {
+        "weights": [
+          7.7557536E12,
+          -9.828505E12,
+          6.808849E12,
+          -2.704579E12,
+          9.083371E12,
+          -9.878519E12,
+          1.13886E13,
+          -9.460103E12,
+          1.1376726E13,
+          -8.875676E12,
+          1.1432004E13,
+          -8.841539E12,
+          1.1862024E13,
+          -8.0782384E12,
+          1.0071696E13,
+          -7.6631334E12,
+          1.4819294E13,
+          -1.1595885E13,
+          1.1857378E13,
+          -6.0057405E12,
+          4.2532177E12,
+          -3.568852E12,
+          9.183679E12,
+          -7.557381E12,
+          8.801653E12,
+          -8.997233E12,
+          7.8901013E12,
+          -1.15488E13,
+          4.9013137E12,
+          5.599047E12,
+          -4.8127583E13
+        ]
+      },
+      "name": "gblinear"
+    },
+    "learner_model_param": {
+      "base_score": "5E-1",
+      "num_class": "0",
+      "num_feature": "30"
+    },
+    "objective": {
+      "name": "reg:squarederror",
+      "reg_loss_param": {
+        "scale_pos_weight": "1"
+      }
+    }
+  },
+  "version": [
+    1,
+    5,
+    1
+  ]
+}

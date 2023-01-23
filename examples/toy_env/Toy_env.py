@@ -14,7 +14,7 @@ import numpy as np
 from mpl_toolkits.axes_grid1 import host_subplot
 import mpl_toolkits.axisartist as AA
 import matplotlib.pyplot as plt
-
+import  pandas as pd
 from deer.base_classes import Environment
 
 class MyEnv(Environment):
@@ -33,11 +33,15 @@ class MyEnv(Environment):
                 
         # Building a price signal with some patterns
         self._price_signal=[]
-        for i in range (1000):
-            price = np.array([0.,0.,0.,-1.,0.,1.,0., 0., 0.])
-            price += self._random_state.uniform(0, 3)
-            self._price_signal.extend(price.tolist())
-       
+        df=pd.read_csv('/Users/pavel/PycharmProjects/deer/data/HOLLISTR_1_N101.csv')
+
+        # for i in range (1000):
+        #     price = np.array([0.,0.,0.,-1.,0.,1.,0., 0., 0.])
+        #     price += self._random_state.uniform(0, 3)
+        #     #print(price)
+        #     self._price_signal.extend(price.tolist())
+        self._price_signal=df['MW'].values.tolist()
+        print('prices',self._price_signal)
         self._price_signal_train = self._price_signal[:len(self._price_signal)//2]
         self._price_signal_valid = self._price_signal[len(self._price_signal)//2:]
         self._prices = None

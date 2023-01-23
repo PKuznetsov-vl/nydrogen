@@ -26,6 +26,7 @@ class MyEnv(Environment):
         Arguments:
             rng - the numpy random number generator
         """
+        self.hydrogen_storage = None
         self.VALIDATION_MODE = 0
         self.TEST_MODE = 1
 
@@ -229,6 +230,11 @@ class MyEnv(Environment):
         # self._last_ponctual_observation[1][1] : Normalized production at current time step (-> not available at decision time)
         # self._last_ponctual_observation[2][0] : Prevision (accurate) for the current time step and the next 24hours
         # self._last_ponctual_observation[2][1] : Prevision (accurate) for the current time step and the next 48hours
+        #self._last_ponctual_observation[0] Состояние батареи(0 = разряжена, 1 = заполнена)
+        #  self._last_ponctual_observation[1] : нормализованное потребление на текущем временном шаге (-> недоступно во время принятия решения)
+        # self._last_ponctual_observation[1][1] : Нормализованное производство на текущем временном шаге (-> недоступно во время принятия решения)
+        # # self._last_ponctual_observation[2][0] : Прогноз (точный) для текущего временного шага и следующих 24 часов
+        # # self._last_ponctual_observation[2][1] : Прогноз (точный) для текущего временного шага и следующих 48 часов
         ###
         self._last_ponctual_observation[1][0]=self.consumption_norm[self.counter]
         self._last_ponctual_observation[1][1]=self.production_norm[self.counter]
@@ -272,7 +278,7 @@ class MyEnv(Environment):
         battery_level=np.array(observations[0])*self.battery_size
         consumption=np.array(observations[1][:,0])*(self.max_consumption-self.min_consumption)+self.min_consumption
         production=np.array(observations[1][:,1])*(self.max_production-self.min_production)+self.min_production
-
+        print(f'batt{battery_level},cons{consumption},prod{production}')
 #        i=0
 #        plot_op(actions[0+i:100+i],consumption[0+i:100+i],production[0+i:100+i],rewards[0+i:100+i],battery_level[0+i:100+i],"plot_winter_.png")
 #
@@ -285,9 +291,10 @@ class MyEnv(Environment):
         
 def main():
     rng = np.random.RandomState(123456)
+    print(rng)
     myenv=MyEnv(rng)
 
     print (myenv.observe())
-    
+    print(myenv.summarizePerformance(np.load("data/BelgiumPV_prod_test.npy")[0:1*365*24]))
 if __name__ == "__main__":
     main()

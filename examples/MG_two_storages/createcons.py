@@ -12,12 +12,12 @@ from plotly.offline import iplot
 
 df= pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv')
 
-df.loc[df['DISTANCE'] <100].to_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv')
-#df=df.loc[df['MONTH'] ==1]
+df.loc[(df['DISTANCE'] <200) & (df['ORIGIN_AIRPORT']=='PSP')].to_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv',index=False)
+df=df.loc[df['MONTH'] ==1]
 graph_df=df.groupby(['DAY'])['DISTANCE'].agg('sum')/1.55
+print(graph_df)
 
-
-# считаем число проданных и вышедших игр по платформам
+# join
 # platforms_df = df.groupby('Platform')[['Global_Sales']].sum().join(
 #     df.groupby('Platform')[['Name']].count()
 # )

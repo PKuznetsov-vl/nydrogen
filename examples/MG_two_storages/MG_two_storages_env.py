@@ -127,7 +127,7 @@ class MyEnv(Environment):
         self.battery_eta=0.9
         
         self.hydrogen_max_power=1.1*inc_sizing
-        self.hydrogen_eta=.65
+        self.hydrogen_eta=0.75
         
     def reset(self, mode):
         """
@@ -184,7 +184,7 @@ class MyEnv(Environment):
         """
         Perform one time step on the environment
         """
-        #print "NEW STEP"
+        print ("NEW STEP")
 
         reward = 0#self.ale.act(action)  #FIXME
         terminal=0
@@ -204,7 +204,7 @@ class MyEnv(Environment):
             true_energy_avail_from_hydrogen=self.hydrogen_max_power/self.hydrogen_eta
             diff_hydrogen=self.hydrogen_max_power
             
-        reward=diff_hydrogen*0.1 # 0.1euro/kWh of hydrogen
+        reward=diff_hydrogen*4 # 0.1euro/kWh of hydrogen
         self.hydrogen_storage+=diff_hydrogen
 
         Energy_needed_from_battery=true_demand+true_energy_avail_from_hydrogen

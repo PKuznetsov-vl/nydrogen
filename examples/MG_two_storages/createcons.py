@@ -13,8 +13,8 @@ from plotly.offline import iplot
 df= pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv')
 
 df.loc[(df['DISTANCE'] <200) & (df['ORIGIN_AIRPORT']=='PSP')].to_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv',index=False)
-df=df.loc[df['MONTH'] ==1]
-graph_df=df.groupby(['DAY'])['DISTANCE'].agg('sum')/1.55
+#df=df.loc[df['MONTH'] ==1]
+graph_df=df.groupby(['MONTH'])['DISTANCE'].agg('sum')/1.55
 print(graph_df)
 
 # join

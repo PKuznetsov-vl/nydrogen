@@ -73,7 +73,7 @@ df = pd.read_csv('0.csv')
 def gen():
     tuple_a = []
     months = list(set(df['MONTH'].values))
-
+    print(months)
     for month in months:
         days = list(set(df.loc[df['MONTH'] == month]['DAY'].values))
         for day in days:
@@ -102,6 +102,7 @@ print(gen())
 #     print( day)
 
 def ds(df):
+   # append 10 month in tuple
     for month in gen():
         # for day in set(list(df['DAY'].values)):
         print('month',month[0])

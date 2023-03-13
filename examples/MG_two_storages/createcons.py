@@ -108,7 +108,7 @@ def ds(df):
         print('month',month[0])
         print('day',month[1])
         #print(df.loc[(df['DAY']==month[1])]['HOUR'].values)
-        for i in range(0, 24, 1):
+        for i in range(0, 24, 1):# may be if else
             dd = df.loc[(df['MONTH'] == month[0]) & (df['DAY'] == month[1])]['HOUR'].values
 
             if i in dd:

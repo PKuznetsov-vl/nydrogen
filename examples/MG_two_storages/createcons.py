@@ -1,3 +1,6 @@
+import itertools
+import time
+
 import pandas as pd
 
 
@@ -8,11 +11,11 @@ import pandas as pd
 # print(consumption_train_norm)
 # np.save('data/test.npy',consumption_train_norm)
 
-# df= pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv')
+# df= pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/US_DOT_ALL_FLIGHT_2015.csv')
 #
-# df.loc[(df['DISTANCE'] <200) & (df['ORIGIN_AIRPORT']=='PSP')].to_csv('/home/pavel/PycharmProjects/nydrogen/data/tst.csv',index=False)
-# #df=df.loc[df['MONTH'] ==1]
-# graph_df=df.groupby(['MONTH'])['DISTANCE'].agg('sum')/1.55
+# df.loc[(df['DISTANCE'] <200) & (df['ORIGIN_AIRPORT']=='PSP')].to_csv('/home/pavel/PycharmProjects/nydrogen/data/psp_flights_2015.csv',index=False)
+# df=df.loc[df['MONTH'] ==1]
+# graph_df=df.groupby(['MONTH'])['DISTANCE'].agg('sum')/1.55 #перевод  в кг
 # print(graph_df)
 #
 # # join
@@ -41,13 +44,82 @@ def edit(value):
         value = value[:2] + ':' + value[2:]
     return value
 
-def zero_val(value:str):
-   value= value[:value.find(":")]
-   return value
 
-print(zero_val('17:32'))
-df = pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/psp_flights_2015.csv')
+def zero_val(value: str):
+    value = value[:value.find(":")]
+    return int(value)
 
-df['Hour'] = df['SCHEDULED_DEPARTURE'].apply(lambda x: zero_val(str(x)))
-print(df['SCHEDULED_DEPARTURE'])
-df.to_csv('/home/pavel/PycharmProjects/nydrogen/data/psp_flights_2015.csv',index=False)
+
+def work_time(function):
+    def wrapped(*args):
+        start_time = time.perf_counter_ns()
+        res = function(*args)
+        print(time.perf_counter_ns() - start_time)
+        return res
+
+    return wrapped
+
+
+# print(zero_val('17:32'))
+# df = pd.read_csv('/home/pavel/PycharmProjects/nydrogen/data/psp_flights_2015.csv',usecols=['YEAR','MONTH','DAY','SCHEDULED_DEPARTURE','DISTANCE'],dtype={'SCHEDULED_DEPARTURE':int})
+# df['HOUR']=df['SCHEDULED_DEPARTURE'].apply(lambda x: edit(str(x))).apply(lambda x:zero_val(x))
+# df = df.append({'YEAR': 2015, 'MONTH': 7, 'DAY': 4, 'HOUR': 5, 'SCHEDULED_DEPARTURE': 0, 'DISTANCE': 0},
+#                  ignore_index=True)
+# df.to_csv('0.csv',index=False)
+df = pd.read_csv('0.csv')
+
+
+@work_time
+def gen():
+    tuple_a = []
+    months = list(set(df['MONTH'].values))
+
+    for month in months:
+        days = list(set(df.loc[df['MONTH'] == month]['DAY'].values))
+        for day in days:
+            #print(day)
+            pass
+            tuple_a.append([month, day])
+    print(len(tuple_a))
+    return tuple_a
+
+
+@work_time
+def tst():
+    tuple_a = []
+    months = list(set(df['MONTH'].values))
+    # atc res=  (month+1 for month in months)
+    res = []
+    for month in months:
+        days = list(set(df.loc[df['MONTH'] == month]['DAY'].values))
+        for day in days:
+            res.append((month, day))
+        print(res)
+
+print(gen())
+# df1=df.copy()
+# for  day in generate():
+#     print( day)
+
+def ds(df):
+    for month in gen():
+        # for day in set(list(df['DAY'].values)):
+        print('month',month[0])
+        print('day',month[1])
+        #print(df.loc[(df['DAY']==month[1])]['HOUR'].values)
+        for i in range(0, 24, 1):
+            dd = df.loc[(df['MONTH'] == month[0]) & (df['DAY'] == month[1])]['HOUR'].values
+
+            if i in dd:
+                print(i)
+
+            else:
+                df = df.append({'YEAR': 2015, 'MONTH': month[0], 'DAY': month[1], 'HOUR': i, 'SCHEDULED_DEPARTURE': 0,
+                                'DISTANCE': 0}, ignore_index=True)
+
+    df.to_csv('1.csv', index=False)
+
+# print(df1.head(40))
+#
+
+#ds(df=df)

@@ -66,7 +66,7 @@ def work_time(function):
 # df = df.append({'YEAR': 2015, 'MONTH': 7, 'DAY': 4, 'HOUR': 5, 'SCHEDULED_DEPARTURE': 0, 'DISTANCE': 0},
 #                  ignore_index=True)
 # df.to_csv('0.csv',index=False)
-df = pd.read_csv('0.csv')
+df = pd.read_csv('examples/MG_two_storages/0.csv')
 
 
 @work_time
@@ -121,6 +121,6 @@ def ds(df):
     df.to_csv('1.csv', index=False)
 
 # print(df1.head(40))
-#
+
 
 #ds(df=df)
